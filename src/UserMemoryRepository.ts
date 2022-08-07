@@ -56,8 +56,7 @@ class UserMemoryRepository {
     );
     let validation = regex.test(email);
 
-    if (validation) return true;
-    else return false;
+    return validation;
   }
 
   public cadastrarUsuario(email: string, password: string): User {
@@ -67,8 +66,10 @@ class UserMemoryRepository {
       this.users.push(novoUsuario);
 
       return novoUsuario;
-    } else {
+    } else if (!this.emailDisponivel(email)) {
       throw new Error("Email já cadastrado.");
+    } else {
+      throw new Error("Email inválido.");
     }
   }
 
